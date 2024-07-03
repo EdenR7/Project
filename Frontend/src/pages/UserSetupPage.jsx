@@ -5,57 +5,9 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { LockKeyhole } from "lucide-react";
-
-export function LoginForm(props) {
-  const { login, setLogin } = props;
-  return (
-    <>
-      <form className=" w-full max-w-80 flex flex-col gap-4">
-        <Input type="text" placeholder="Username" name="userName" />
-        <Input type="password" placeholder="Passwrod" name="userName" />
-        <p className=" text-xs mx-auto">
-          Dont have an account?{" "}
-          <a
-            className=" font-semibold text-primary"
-            href="#"
-            onClick={() => {
-              setLogin(false);
-            }}
-          >
-            Register
-          </a>
-        </p>
-        <Button className="block w-full">Sign In</Button>
-      </form>
-    </>
-  );
-}
-export function RegisterForm(props) {
-  const { login, setLogin } = props;
-  return (
-    <>
-      <form className=" flex flex-col gap-3">
-        <Input type="text" placeholder="Username" name="userName" />
-        <Input type="text" placeholder="Username" name="userName" />
-        <Input type="text" placeholder="Username" name="userName" />
-        <IconInput Icon={LockKeyhole} placeholder="Password" type="password" />
-        <p className=" text-xs mx-auto">
-          Alredy have an account?{" "}
-          <a
-            onClick={() => {
-              setLogin(true);
-            }}
-            className=" font-semibold text-primary"
-            href="#"
-          >
-            Sign Up!
-          </a>
-        </p>
-        <Button className="block w-full">Create Account</Button>
-      </form>
-    </>
-  );
-}
+import { LoginForm } from "@/components/userSetupPage/LoginForm";
+import { RegisterForm } from "@/components/userSetupPage/RegisterForm";
+export const AUTH_URL = "http://localhost:3000/api/auth/";
 
 function UserSetupPage() {
   const [login, setLogin] = useToggle(true);

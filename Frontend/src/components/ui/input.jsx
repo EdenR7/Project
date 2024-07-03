@@ -18,7 +18,7 @@ const Input = React.forwardRef(({ className, type, ...props }, ref) => {
 Input.displayName = "Input";
 
 const IconInput = React.forwardRef(
-  ({ className, type, Icon, placeholder, ...props }, ref) => {
+  ({ className, type, Icon, ...props }, ref) => {
     return (
       <div className="relative">
         <span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -26,9 +26,7 @@ const IconInput = React.forwardRef(
         </span>
         <input
           type={type}
-          placeholder={placeholder}
           className="pl-10 p-2 border rounded-lg w-full"
-          {...props}
           ref={ref}
           {...props}
         />

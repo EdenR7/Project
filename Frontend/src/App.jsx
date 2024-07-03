@@ -1,35 +1,23 @@
 import React from "react";
-import { Badge } from "./components/ui/badge";
-import { Link, Outlet, Route, Routes } from "react-router-dom";
+import { Link, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import UserSetupPage from "./pages/UserSetupPage";
+import UserTasksPage from "./pages/UserTasksPage";
+import DefaultLayout from "./components/general/DefaultLayout";
 
-export function MainNavBar() {
-  return (
-    <>
-      <nav className=" font-montserrat sticky top-0 mb-4 px-6 py-4 shadow-md bg-white">
-        <ul className=" flex gap-2 justify-between items-center">
-          <li>
-            <Link to="/">LOGO</Link>
-          </li>
-          <li className=" flex gap-2">
-            <Link to="/blah">BLAH</Link>
-            <Link>BLAH2</Link>
-            <Link to="/userSetup">Sign In</Link>
-          </li>
-        </ul>
-      </nav>
-    </>
-  );
+export const userLogged = null;
+
+function ProtectedRoute({ children }) {
+  if (userLogged === null) {
+    return <Navigate to="/auth/userSetup" />;
+  }
+
+  return children;
 }
-
-export function MainLayout() {
+function ProtectedLayout() {
   return (
     <>
-      <MainNavBar />
-      <div className=" font-montserrat px-6 ">
-        <Outlet />
-      </div>
+      <Outlet />
     </>
   );
 }
@@ -39,12 +27,21 @@ function App() {
     <>
       <div className=" h-full">
         <Routes>
-          <Route path="/" element={<MainLayout />}>
+          <Route path="/" element={<DefaultLayout />}>
             <Route index element={<HomePage />} />
-            <Route path="blah" element={<div>cla</div>} />
+            <Route
+              path="/user"
+              element={
+                <ProtectedRoute>
+                  <ProtectedLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<UserTasksPage />} />
+            </Route>
           </Route>
 
-          <Route path="/userSetup" element={<UserSetupPage />} />
+          <Route path="/auth/userSetup" element={<UserSetupPage />} />
         </Routes>
       </div>
     </>

@@ -85,42 +85,38 @@ async function deleteTask(req, res) {
   }
 }
 
-// async function getUserTasks(req, res) {
-//   const { userId } = req;
-//   try {
-//     const adjustedUserId = new mongoose.Types.ObjectId(userId);
-//     const Tasks = await Task.find({ user: adjustedUserId });
-//     res.status(200).json(Tasks);
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({ message: "Server Error" });
-//   }
-// }
+async function updateTask(req, res) {
+  const { id } = req.params;
+  const newTaskFields = req.body;
 
-// async function deleteTask(req, res) {
-//   const { id } = req.params;
-//   const { userId } = req;
-//   console.log(req);
+  try {
+    const updatedTask = await Task.findByIdAndUpdate(id, newTaskFields, {
+      new: true,
+      runValidators: true,
+    });
 
-//   try {
-//     const Task = await Task.findById(id);
-//     if (!Task) {
-//       console.log(
-//         `user.controller, deleteTask, Task not found with id: ${id}`
-//       );
-//       return res.status(404).json({ message: "Task didnt found" });
-//     }
+    if (!updatedTask) {
+      console.log(`user.controller, updateTask. task not found with id: ${id}`);
+      return res.status(404).json({ message: "User not found" });
+    }
 
-//     if (Task.user.toString() !== userId.toString()) {
-//       return res.status(400).json({ message: "The user IDs not match !" });
-//     }
-//     const deletedTask = await Task.findByIdAndDelete(id);
-//     res.status(202).json({ message: "Task Deleted" });
-//   } catch (err) {
-//     console.log(`user.controller, deleteTask. ${err}`);
-//     res.status(500).json({ message: "Server error while creating Task" });
-//   }
-// }
+    res.json(updatedTask);
+  } catch (err) {
+    if (err.name === "CastError") {
+      `task.controller, CastError updateTask something went wrong with user id:${id}`;
+      return res.status(404).json({ message: "Task didnt found" });
+    }
+    if (err.name === "ValidationError") {
+      // Mongoose validation error
+      console.log(`user.controller, updateTask. ${err.message}`);
+      res.status(400).json({ message: err.message });
+    } else {
+      // Other types of errors
+      console.log(`user.controller, updateTask. ${err.message}`);
+      res.status(500).json({ message: "Server error while updating user" });
+    }
+  }
+}
 
 module.exports = {
   getUser,
@@ -128,4 +124,5 @@ module.exports = {
   getUserTasksNumber,
   createTask,
   deleteTask,
+  updateTask,
 };
