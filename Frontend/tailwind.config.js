@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
-    './app/**/*.{js,jsx}',
-    './src/**/*.{js,jsx}',
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}",
   ],
   prefix: "",
   theme: {
@@ -71,7 +71,36 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      transitionProperty: {
+        height: "height",
+      },
+      backgroundImage: {
+        "gradient-yellow":
+          "linear-gradient(to right, #FFE97C, hsl(45, 80%, 71%))",
+        "gradient-yellow-reverse":
+          "linear-gradient(to right, hsl(45, 80%, 61%), #FFE97C)",
+      },
+      fontFamily: {
+        sans: ['"Open Sans"', "sans-serif"],
+        montserrat: ['"Montserrat"', "sans-serif"],
+      },
+      screens: {
+        "1col": "350px",
+        "break-400px": "400px",
+        "break-500px": "500px",
+        "break-600px": "600px",
+        "break-950px": "950px",
+        "2col": "750px",
+        "3col": "1100px",
+      },
+      spacing: {
+        400: "400px",
+        500: "500px",
+        600: "600px",
+        700: "700px",
+        800: "800px",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
