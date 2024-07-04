@@ -15,15 +15,11 @@ const users = [
     username: "john_doe",
     email: "john@example.com",
     password: "password123",
-    firstName: "John",
-    lastName: "Doe",
   },
   {
     username: "jane_doe",
     email: "jane@example.com",
     password: "password456",
-    firstName: "Jane",
-    lastName: "Doe",
   },
 ];
 
@@ -38,7 +34,7 @@ const tasks = [
       { title: "Review with team", isComplete: false },
       { title: "Submit proposal", isComplete: false },
     ],
-    isPinned: true,
+    isPinned: false,
   },
   {
     title: "Prepare for Presentation",
@@ -87,7 +83,7 @@ const tasks = [
       { title: "Write feedback comments", isComplete: false },
       { title: "Approve changes", isComplete: false },
     ],
-    isPinned: true,
+    isPinned: false,
   },
   {
     title: "Client Follow-Up",
@@ -159,7 +155,7 @@ const tasks = [
       { title: "Collect responses", isComplete: false },
       { title: "Analyze survey results", isComplete: false },
     ],
-    isPinned: true,
+    isPinned: false,
   },
   {
     title: "Inventory Check",

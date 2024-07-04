@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import axios from "axios";
 import { AUTH_URL } from "@/pages/UserSetupPage";
+import { UserContext } from "@/context/userContext";
+import { useNavigate } from "react-router-dom";
+// import { UserContext } from "@/context/userContext";
 
 export function LoginForm(props) {
   const { login, setLogin } = props;
@@ -10,6 +13,8 @@ export function LoginForm(props) {
     username: "",
     password: "",
   });
+  const { loginUserContext } = useContext(UserContext);
+  const navigate = useNavigate();
 
   function handleInputChange(ev) {
     setNewUser((prev) => {
@@ -25,9 +30,9 @@ export function LoginForm(props) {
     try {
       const res = await axios.post(AUTH_URL + "login", newUser);
       const { token } = res.data;
-      console.log(token);
       localStorage.setItem("userToken", token);
-      // navigate
+      loginUserContext(token);
+      navigate("/");
       // snackbar
     } catch (err) {
       console.error(err);

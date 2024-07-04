@@ -10,9 +10,9 @@ const todoSchema = new mongoose.Schema(
 
 const taskSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    body: { type: String, required: true },
+    title: { type: String },
+    description: { type: String },
+    body: { type: String },
     todoList: [todoSchema],
     isPinned: { type: Boolean, default: false },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },

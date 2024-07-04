@@ -7,6 +7,7 @@ const {
   createTask,
   deleteTask,
   updateTask,
+  getTaskById,
 } = require("../controllers/user.controllers");
 const router = express.Router();
 
@@ -15,7 +16,8 @@ router.get("/tasks", getUserTasks);
 router.get("/tasks/count", getUserTasksNumber);
 router.post("/tasks", createTask);
 router.delete("/tasks/:id", deleteTask);
-router.put("/tasks/:id", updateTask);
+router.get("/tasks/:id", getTaskById);
+router.patch("/tasks/:id", updateTask);
 
 // router.get("/:id", getUserById);
 
