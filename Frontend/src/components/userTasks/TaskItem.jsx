@@ -7,24 +7,24 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
-import { useContext, useState } from "react";
-import axios from "axios";
+import { useContext } from "react";
 import { UserContext } from "@/context/userContext";
+import { ToolTipWrapper } from "../ui/ToolTipWrapper";
+import { useLocation, useNavigate } from "react-router-dom";
+import api from "@/services/api.service";
 const USER_TASKS_URL = "http://localhost:3000/api/user/tasks/";
 
 export function TaskItem(props) {
   const { userToken } = useContext(UserContext);
   const { task, setTasks, tasks } = props;
-  const [curTask, setCurTask] = useState(task);
+  const navigate = useNavigate();
 
   function handleTodoChange(ev) {
     ev.stopPropagation();
-    const targetTodo = curTask.todoList.find(
-      (todo) => todo._id === ev.target.id
-    );
+    const targetTodo = task.todoList.find((todo) => todo._id === ev.target.id);
     targetTodo.isComplete = !targetTodo.isComplete;
 
-    const newTodos = curTask.todoList.map((todo) => {
+    const newTodos = task.todoList.map((todo) => {
       if (todo._id === ev.target.id) return targetTodo;
       return todo;
     });
@@ -36,55 +36,58 @@ export function TaskItem(props) {
   function handlePinChange(ev) {
     ev.stopPropagation();
     const newTodoList = {
-      isPinned: !curTask.isPinned,
+      isPinned: !task.isPinned,
     };
     updateTask(newTodoList);
   }
 
   async function updateTask(newfields) {
     try {
-      const res = await axios.patch(USER_TASKS_URL + curTask._id, newfields, {
-        headers: {
-          Authorization: userToken,
-        },
-      });
-      console.log(res.data._id);
+      const res = await api.patch("/user/tasks/" + task._id, newfields);
+
       const updatedTasks = tasks.map((task) =>
         task._id === res.data._id ? res.data : task
       );
-      // setCurTask(res.data);
       setTasks(updatedTasks);
     } catch (err) {
       console.error(err);
     }
   }
 
+  function moveToTaskPage(ev) {
+    navigate(`task/${task._id}`);
+  }
+
   return (
-    <li key={curTask._id}>
+    <li key={task._id}>
       <Card
         className=" relative p-6 max-w-md flex flex-col gap-4 shadow-md transition-all hover:-translate-y-1"
-        onClick={() => {
-          console.log("Hi");
-        }}
+        onClick={moveToTaskPage}
       >
         <CardHeader className="p-0 ">
           <div className=" flex justify-between">
-            <CardTitle className=" w-[90%]">{curTask.title}</CardTitle>
-            <Pin
-              onClick={handlePinChange}
-              color={curTask.isPinned ? "#000000" : "#d4d4d4"}
-              strokeWidth={0.75}
-              className="cursor-pointer min-w-5 min-h-5"
-            />
+            <CardTitle className=" w-[90%]">{task.title}</CardTitle>
+            <ToolTipWrapper
+              tooltipContent={`${
+                task.isPinned ? "Remove from pin tasks" : "Pin this task"
+              }`}
+            >
+              <Pin
+                onClick={handlePinChange}
+                color={task.isPinned ? "#2563EB" : "#d4d4d4"}
+                strokeWidth={task.isPinned ? "1.75" : "0.75"}
+                className="cursor-pointer min-w-5 min-h-5"
+              />
+            </ToolTipWrapper>
           </div>
           <CardDescription className=" px-1">
-            {curTask.description}
+            {task.description}
           </CardDescription>
         </CardHeader>
         <CardContent className=" p-1 space-y-2">
-          <p>{curTask.body}</p>
+          <p>{task.body}</p>
           <ul className=" flex flex-col gap-2 text-sm mx-2 p-1">
-            {curTask.todoList.map((todo) => {
+            {task.todoList.map((todo) => {
               return (
                 <li className=" flex items-center gap-2" key={todo._id}>
                   <Checkbox

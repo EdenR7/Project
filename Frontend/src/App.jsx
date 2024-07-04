@@ -5,6 +5,7 @@ import UserSetupPage from "./pages/UserSetupPage";
 import UserTasksPage from "./pages/UserTasksPage";
 import DefaultLayout from "./components/general/DefaultLayout";
 import { UserContext } from "./context/userContext";
+import TaskDetails from "./pages/TaskDetails";
 
 function AuthorizedRoute({ children }) {
   const { user } = useContext(UserContext);
@@ -48,6 +49,9 @@ function App() {
               }
             >
               <Route index element={<UserTasksPage />} />
+              <Route path="task/:id" element={<UserTasksPage />}>
+                <Route index element={<TaskDetails />} />
+              </Route>
             </Route>
           </Route>
           <Route
@@ -63,5 +67,14 @@ function App() {
     </>
   );
 }
+
+// create task
+// remove task
+// snackbars
+// Task Modal layout
+// refactors by omer : register/login
+// table mode
+// features
+// improve layouts
 
 export default App;

@@ -18,10 +18,10 @@ async function getUser(req, res) {
 }
 
 async function getUserTasks(req, res) {
+  console.log("m");
+
   const { userId } = req;
   try {
-    const adjustedUserId = new mongoose.Types.ObjectId(userId);
-    // const tasks = await Task.find({ user: adjustedUserId });
     const tasks = await Task.find({ user: userId });
     res.status(200).json(tasks);
   } catch (err) {

@@ -1,4 +1,4 @@
-import { UserRoundCog } from "lucide-react";
+import { LogIn, UserRoundCog } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AvatarDemo } from "../ui/AvatarDemo";
 import { useContext, useState } from "react";
@@ -32,7 +32,15 @@ export default function MainNavBar() {
                     <Link to="/user">MyTasks</Link>
                   </DropdownMenuCheckboxItem>,
                   <DropdownMenuCheckboxItem className=" text-red-500 font-semibold hover:text-red-600 cursor-pointer hover:bg-slate-50">
-                    <button onClick={logoutUser}>Logout</button>
+                    <button
+                      onClick={logoutUser}
+                      className="flex items-center gap-1"
+                    >
+                      <span>Logout</span>
+                      <span>
+                        <LogIn size={16} />
+                      </span>
+                    </button>
                   </DropdownMenuCheckboxItem>,
                 ]}
                 label={user.username}

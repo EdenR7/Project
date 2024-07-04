@@ -7,7 +7,8 @@ import { AUTH_URL } from "@/pages/UserSetupPage";
 import { useNavigate } from "react-router-dom";
 
 export function RegisterForm(props) {
-  const { login, setLogin } = props;
+  const { loginMode, setLoginMode } = props;
+  // const { loggedInUser, login, register, logout } = useAuth();
   const [newUser, setNewUser] = useState({
     username: "",
     email: "",
@@ -25,9 +26,10 @@ export function RegisterForm(props) {
 
   async function handleCreateNewUser(ev) {
     ev.preventDefault();
+    // register(newUser);
     try {
       const res = await axios.post(AUTH_URL + "register", newUser);
-      setLogin(true);
+      setLoginMode(true);
       // snackbar
     } catch (err) {
       console.error(err);
@@ -67,7 +69,7 @@ export function RegisterForm(props) {
           Alredy have an account?{" "}
           <a
             onClick={() => {
-              setLogin(true);
+              setLoginMode(true);
             }}
             className=" font-semibold text-primary"
             href="#"

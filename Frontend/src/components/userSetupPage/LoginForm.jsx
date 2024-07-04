@@ -5,14 +5,14 @@ import axios from "axios";
 import { AUTH_URL } from "@/pages/UserSetupPage";
 import { UserContext } from "@/context/userContext";
 import { useNavigate } from "react-router-dom";
-// import { UserContext } from "@/context/userContext";
 
 export function LoginForm(props) {
-  const { login, setLogin } = props;
+  const { loginMode, setLoginMode } = props;
   const [newUser, setNewUser] = useState({
     username: "",
     password: "",
   });
+  // const { loggedInUser, login, register, logout } = useAuth();
   const { loginUserContext } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -27,6 +27,7 @@ export function LoginForm(props) {
 
   async function handleLoginUser(ev) {
     ev.preventDefault();
+    // login(newUser);
     try {
       const res = await axios.post(AUTH_URL + "login", newUser);
       const { token } = res.data;
@@ -67,7 +68,7 @@ export function LoginForm(props) {
             className=" font-semibold text-primary"
             href="#"
             onClick={() => {
-              setLogin(false);
+              setLoginMode(false);
             }}
           >
             Register

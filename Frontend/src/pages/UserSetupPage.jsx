@@ -10,7 +10,7 @@ import { RegisterForm } from "@/components/userSetupPage/RegisterForm";
 export const AUTH_URL = "http://localhost:3000/api/auth/";
 
 function UserSetupPage() {
-  const [login, setLogin] = useToggle(true);
+  const [loginMode, setLoginMode] = useToggle(true);
 
   return (
     <div
@@ -21,13 +21,13 @@ function UserSetupPage() {
     >
       <Card className=" py-6 min-h-96 min-w-80 flex flex-col items-center justify-center gap-4">
         <CardTitle className="text-3xl">
-          {login ? "Login" : "Register"}
+          {loginMode ? "Login" : "Register"}
         </CardTitle>
         <CardContent className="w-full max-w-80 ">
-          {login ? (
-            <LoginForm login={login} setLogin={setLogin} />
+          {loginMode ? (
+            <LoginForm loginMode={loginMode} setLoginMode={setLoginMode} />
           ) : (
-            <RegisterForm login={login} setLogin={setLogin} />
+            <RegisterForm loginMode={loginMode} setLoginMode={setLoginMode} />
           )}
         </CardContent>
       </Card>
