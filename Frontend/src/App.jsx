@@ -69,10 +69,12 @@ function App() {
 }
 
 // Task Modal layout
+// Home page
+// Orginze components
 // refactors by omer : register/login
 // table mode
 // aborting, filters
-// features
+// features progress, open create fields by buttons
 // improve layouts
 
 export default App;
