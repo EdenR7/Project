@@ -121,7 +121,7 @@ function CreateForm({ setTasks }) {
                 }}
               >
                 <label htmlFor={`todo-${index}`}>
-                  <Plus />
+                  <Plus className=" cursor-pointer" />
                 </label>
                 <Input
                   value={element}
