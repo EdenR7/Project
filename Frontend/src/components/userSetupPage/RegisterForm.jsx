@@ -1,19 +1,20 @@
 import { LockKeyhole } from "lucide-react";
 import { Button } from "../ui/button";
 import { IconInput, Input } from "../ui/input";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { AUTH_URL } from "@/pages/UserSetupPage";
 import { useNavigate } from "react-router-dom";
+import { SnackBarContext } from "@/context/SnackBarContext";
 
 export function RegisterForm(props) {
   const { loginMode, setLoginMode } = props;
-  // const { loggedInUser, login, register, logout } = useAuth();
   const [newUser, setNewUser] = useState({
     username: "",
     email: "",
     password: "",
   });
+  const { displaySnackBar } = useContext(SnackBarContext);
 
   function handleInputChange(ev) {
     setNewUser((prev) => {
@@ -30,8 +31,18 @@ export function RegisterForm(props) {
     try {
       const res = await axios.post(AUTH_URL + "register", newUser);
       setLoginMode(true);
-      // snackbar
+      displaySnackBar({
+        label: "You registered successfully",
+      });
     } catch (err) {
+      displaySnackBar({
+        label: "Error in register proccess!",
+        context:
+          err.response.data.error === "User already exists" &&
+          "Sorry, username already exists",
+        closeManually: true,
+        type: "danger",
+      });
       console.error(err);
       // snackbar
     }

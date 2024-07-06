@@ -4,8 +4,8 @@ import HomePage from "./pages/HomePage";
 import UserSetupPage from "./pages/UserSetupPage";
 import UserTasksPage from "./pages/UserTasksPage";
 import DefaultLayout from "./components/general/DefaultLayout";
-import { UserContext } from "./context/userContext";
-import TaskDetails from "./pages/TaskDetails";
+import { UserContext } from "./context/UserContext";
+import TaskDetails from "./pages/TaskDetailsPage";
 
 function AuthorizedRoute({ children }) {
   const { user } = useContext(UserContext);
@@ -68,12 +68,10 @@ function App() {
   );
 }
 
-// create task
-// remove task
-// snackbars
 // Task Modal layout
 // refactors by omer : register/login
 // table mode
+// aborting, filters
 // features
 // improve layouts
 

@@ -3,14 +3,19 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-// import { AuthProvider } from "./context/userContext.jsx";
-import { UserContextProvider } from "./context/userContext.jsx";
+import { UserContextProvider } from "./context/UserContext.jsx";
+import { SnackBarCtxProvider } from "./context/SnackBarContext.jsx";
+import { TaskEditContextProvider } from "./context/TaskEditContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <UserContextProvider>
-        <App />
+        <SnackBarCtxProvider>
+          <TaskEditContextProvider>
+            <App />
+          </TaskEditContextProvider>
+        </SnackBarCtxProvider>
       </UserContextProvider>
     </BrowserRouter>
   </React.StrictMode>

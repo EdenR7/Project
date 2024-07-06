@@ -1,10 +1,13 @@
 import { TaskItem } from "@/components/userTasks/TaskItem";
 import TaskList from "@/components/userTasks/TasksList";
-import { UserContext } from "@/context/userContext";
+import { UserContext } from "@/context/UserContext";
 import React, { useContext, useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { Outlet, useLocation } from "react-router-dom";
 import api from "@/services/api.service";
+import CreateForm from "@/components/userTasks/CreateForm";
+import SnackBar from "@/components/ui/SnackBar";
+import { SnackBarContext } from "@/context/SnackBarContext";
 
 const USER_TASKS_URL = "http://localhost:3000/api/user/tasks";
 
@@ -12,6 +15,7 @@ function UserTasksPage() {
   const { user, userToken } = useContext(UserContext);
   const [tasks, setTasks] = useState([]);
   const location = useLocation();
+  const { snackBar } = useContext(SnackBarContext);
 
   const unPinnedTasks = [];
   const pinnedTasks = tasks.filter((task) => {
@@ -36,14 +40,7 @@ function UserTasksPage() {
   return (
     <>
       <div>
-        <h1 className=" text-2xl font-semibold">
-          Hello {user.username},
-          <span>
-            {user.tasks.length > 0
-              ? " This is your tasks:"
-              : " You dont have any tasks yet!"}
-          </span>{" "}
-        </h1>
+        <CreateForm setTasks={setTasks} />
         {pinnedTasks.length > 0 && (
           <>
             <div className=" my-14 space-y-4">
@@ -63,10 +60,9 @@ function UserTasksPage() {
                 })}
               </TaskList>
             </div>
-            <Separator />
           </>
         )}
-
+        {unPinnedTasks.length > 0 && pinnedTasks.length > 0 && <Separator />}
         {unPinnedTasks.length > 0 && (
           <div className=" my-12 space-y-4">
             <h2 className=" text-xl font-semibold underline">
@@ -87,6 +83,7 @@ function UserTasksPage() {
           </div>
         )}
       </div>
+      {snackBar.display && <SnackBar />}
       <Outlet />
     </>
   );

@@ -7,11 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export function DropdownMenuCheckboxes({
-  triggerElement,
-  dropDownItems,
-  label,
-}) {
+export function MyDropDownMenu({ triggerElement, dropDownItems, label }) {
   //   const [showStatusBar, setShowStatusBar] = useState(true);
   //   const [showActivityBar, setShowActivityBar] = useState(false);
   //   const [showPanel, setShowPanel] = useState(false);
@@ -20,9 +16,7 @@ export function DropdownMenuCheckboxes({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{triggerElement}</DropdownMenuTrigger>
       <DropdownMenuContent className="min-w-36 max-w-56 font-montserrat">
-        <DropdownMenuLabel className="text-center">
-          Hello {label} !
-        </DropdownMenuLabel>
+        <DropdownMenuLabel className="text-center">{label}</DropdownMenuLabel>
         {!dropDownItems
           ? ""
           : dropDownItems.map((item, index) => {

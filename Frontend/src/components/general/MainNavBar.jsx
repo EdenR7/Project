@@ -2,25 +2,42 @@ import { LogIn, UserRoundCog } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AvatarDemo } from "../ui/AvatarDemo";
 import { useContext, useState } from "react";
-import { UserContext } from "@/context/userContext";
+import { UserContext } from "@/context/UserContext";
 import { DropdownMenuCheckboxItem } from "../ui/dropdown-menu";
-import { DropdownMenuCheckboxes } from "../ui/myDropDownMenu";
+// import { DropdownMenuCheckboxes } from "../ui/myDropDownMenu";
 import { Button } from "../ui/button";
+import { MyDropDownMenu } from "../ui/myDropDownMenu";
 
 export default function MainNavBar() {
   const { user, logoutUser } = useContext(UserContext);
-
+  // console.log(user.tasks.length);
   return (
     <>
-      <DropdownMenuCheckboxes />
-      <nav className=" z-40 font-montserrat sticky top-0 mb-4 px-6 py-4 shadow-md bg-white">
+      <nav className=" z-40 font-montserrat sticky top-0 mb-4 px-6 py-4 shadow-md bg-white break-950px:px-16">
         <ul className=" flex gap-2 justify-between items-center">
           <li>
             <Link to="/">LOGO</Link>
           </li>
+          {user && (
+            <li className=" hidden sm:inline">
+              {user.tasks.length ? (
+                <p>
+                  Hello <span className=" font-semibold">{user.username} </span>
+                  , you have{" "}
+                  <span className=" font-semibold">{user.tasks.length}</span>{" "}
+                  tasks to complete!
+                </p>
+              ) : (
+                <p>
+                  Hi <span className=" font-semibold">{user.username} </span>{" "}
+                  you dont have any task right now!
+                </p>
+              )}
+            </li>
+          )}
           <li className=" flex items-center gap-2">
             {user ? (
-              <DropdownMenuCheckboxes
+              <MyDropDownMenu
                 className=" font-montserrat"
                 triggerElement={
                   <Link>
@@ -43,7 +60,7 @@ export default function MainNavBar() {
                     </button>
                   </DropdownMenuCheckboxItem>,
                 ]}
-                label={user.username}
+                label={`Hello ${user.username}!`}
               />
             ) : (
               <Link to="/auth/userSetup" className="flex gap-2 items-center">

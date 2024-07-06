@@ -3,8 +3,9 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import axios from "axios";
 import { AUTH_URL } from "@/pages/UserSetupPage";
-import { UserContext } from "@/context/userContext";
+import { UserContext } from "@/context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { SnackBarContext } from "@/context/SnackBarContext";
 
 export function LoginForm(props) {
   const { loginMode, setLoginMode } = props;
@@ -12,9 +13,9 @@ export function LoginForm(props) {
     username: "",
     password: "",
   });
-  // const { loggedInUser, login, register, logout } = useAuth();
   const { loginUserContext } = useContext(UserContext);
   const navigate = useNavigate();
+  const { displaySnackBar } = useContext(SnackBarContext);
 
   function handleInputChange(ev) {
     setNewUser((prev) => {
@@ -27,17 +28,26 @@ export function LoginForm(props) {
 
   async function handleLoginUser(ev) {
     ev.preventDefault();
-    // login(newUser);
     try {
       const res = await axios.post(AUTH_URL + "login", newUser);
       const { token } = res.data;
       localStorage.setItem("userToken", token);
       loginUserContext(token);
       navigate("/");
-      // snackbar
+      displaySnackBar({
+        label: `Welcome ${newUser.username}`,
+      });
     } catch (err) {
+      displaySnackBar({
+        label: "Error in login proccess!",
+        context:
+          err.response.data.error === "Authentication failed" &&
+          "Please check your fields",
+        closeManually: true,
+        type: "danger",
+      });
       console.error(err);
-      // snackbar
+      console.error(err.response.data.error);
     }
   }
   return (

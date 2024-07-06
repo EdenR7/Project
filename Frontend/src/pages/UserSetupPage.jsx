@@ -2,15 +2,19 @@ import useToggle from "@/hooks/useToggle";
 import { IconInput, Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-import React from "react";
+import React, { useContext } from "react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { LockKeyhole } from "lucide-react";
 import { LoginForm } from "@/components/userSetupPage/LoginForm";
 import { RegisterForm } from "@/components/userSetupPage/RegisterForm";
+import { SnackBarContext } from "@/context/SnackBarContext";
+import SnackBar from "@/components/ui/SnackBar";
 export const AUTH_URL = "http://localhost:3000/api/auth/";
 
 function UserSetupPage() {
   const [loginMode, setLoginMode] = useToggle(true);
+  const { snackBar, setSnackBar, displaySnackBar, closeSnackBar } =
+    useContext(SnackBarContext);
 
   return (
     <div
@@ -31,6 +35,7 @@ function UserSetupPage() {
           )}
         </CardContent>
       </Card>
+      {snackBar.display && <SnackBar />}
     </div>
   );
 }

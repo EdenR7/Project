@@ -5,7 +5,7 @@ export default function DefaultLayout() {
   return (
     <>
       <MainNavBar />
-      <div className=" font-montserrat px-6 ">
+      <div className=" font-montserrat px-6 break-950px:px-16">
         <Outlet />
       </div>
     </>
