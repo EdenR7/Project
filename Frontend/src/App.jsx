@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import { Link, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import UserSetupPage from "./pages/UserSetupPage";
 import UserTasksPage from "./pages/UserTasksPage";
 import DefaultLayout from "./components/general/DefaultLayout";
 import { UserContext } from "./context/UserContext";
 import TaskDetails from "./pages/TaskDetailsPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import AuthLayout from "./components/general/AuthLayout";
 
 function AuthorizedRoute({ children }) {
   const { user } = useContext(UserContext);
@@ -13,7 +15,7 @@ function AuthorizedRoute({ children }) {
     return null;
   }
   if (user === null) {
-    return <Navigate to="/auth/userSetup" replace />;
+    return <Navigate to="/auth" replace />;
   }
   return children;
 }
@@ -55,24 +57,30 @@ function App() {
             </Route>
           </Route>
           <Route
-            path="/auth/userSetup"
+            path="/auth"
             element={
               <UnAuthorizedRoute>
-                <UserSetupPage />
+                <AuthLayout />
               </UnAuthorizedRoute>
             }
-          />
+          >
+            <Route index element={<LoginPage />} />
+            <Route path="register" element={<RegisterPage />} />
+          </Route>
         </Routes>
       </div>
     </>
   );
 }
 
-// table mode
-// refactors by omer : register/login
-// aborting, filters
-// Home page
+// links in home page buttons
+// snack bar at logout
+// orginze code
+// not found page
+// aborting
 // features progress, open create fields by buttons
+// filters
+// Home page
 // improve layouts
 
 export default App;

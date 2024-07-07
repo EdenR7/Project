@@ -62,7 +62,7 @@ export default function MainNavBar() {
                 label={`Hello ${user.username}!`}
               />
             ) : (
-              <Link to="/auth/userSetup" className="flex gap-2 items-center">
+              <Link to="/auth" className="flex gap-2 items-center">
                 <span>Sign In</span>{" "}
                 <span className=" bg-gray-300 p-1 rounded-full">
                   <UserRoundCog

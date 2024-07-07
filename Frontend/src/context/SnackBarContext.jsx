@@ -29,8 +29,8 @@ export function SnackBarCtxProvider({ children }) {
     setSnackBar((prev) => ({
       ...prev,
       display: true,
-      label: label || prev.label,
-      context: context || prev.context,
+      label: label || "",
+      context: context || "",
       closeManually: closeManually || false,
       className: className || prev.className,
       type: type || "success",

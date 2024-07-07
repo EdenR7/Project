@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { List, TableProperties } from "lucide-react";
 import TaskListMode from "@/components/userTasks/TaskListMode";
 import { TaskTableMode } from "@/components/userTasks/TaskTableMode";
+import { ToolTipWrapper } from "@/components/ui/ToolTipWrapper";
 
 const USER_TASKS_URL = "http://localhost:3000/api/user/tasks";
 
@@ -50,14 +51,18 @@ function UserTasksPage() {
           <>
             <div className=" flex justify-center gap-4">
               <CreateForm setTasks={setTasks} />
-              <Button
-                className=" mt-6"
-                onClick={() => {
-                  setTableMode(false);
-                }}
-              >
-                <List />
-              </Button>
+              {tasks.length && (
+                <ToolTipWrapper tooltipContent="List display (default) mode">
+                  <Button
+                    className=" mt-6"
+                    onClick={() => {
+                      setTableMode(false);
+                    }}
+                  >
+                    <List />
+                  </Button>
+                </ToolTipWrapper>
+              )}
             </div>
             <TaskTableMode tasks={tasks} />
           </>
@@ -65,14 +70,18 @@ function UserTasksPage() {
           <>
             <div className=" flex justify-center gap-4">
               <CreateForm setTasks={setTasks} />
-              <Button
-                className=" mt-6"
-                onClick={() => {
-                  setTableMode(true);
-                }}
-              >
-                <TableProperties />
-              </Button>
+              {tasks.length > 0 && (
+                <ToolTipWrapper tooltipContent="Table display mode">
+                  <Button
+                    className=" mt-6"
+                    onClick={() => {
+                      setTableMode(true);
+                    }}
+                  >
+                    <TableProperties />
+                  </Button>
+                </ToolTipWrapper>
+              )}
             </div>
             <TaskListMode
               tasks={tasks}

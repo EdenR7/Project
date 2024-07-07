@@ -42,7 +42,7 @@ function HomePage() {
             alt=""
           />
         </div>
-        <header className=" flex flex-col gap-4 order-1 break-950px:pl-12 ">
+        <header className=" pb-10 flex flex-col gap-4 order-1 break-950px:pl-12 break-950px:pb-0 ">
           <h2 className=" text-4xl font-bold">
             Manage Your Tasks with Ease Using TaskEase!
           </h2>

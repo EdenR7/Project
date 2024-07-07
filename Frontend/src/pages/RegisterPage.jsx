@@ -1,14 +1,14 @@
 import { LockKeyhole } from "lucide-react";
-import { Button } from "../ui/button";
-import { IconInput, Input } from "../ui/input";
 import { useContext, useState } from "react";
 import axios from "axios";
-import { AUTH_URL } from "@/pages/UserSetupPage";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SnackBarContext } from "@/context/SnackBarContext";
+import { IconInput, Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { AUTH_URL } from "@/components/general/AuthLayout";
 
-export function RegisterForm(props) {
-  const { loginMode, setLoginMode } = props;
+function RegisterPage() {
+  const navigate = useNavigate();
   const [newUser, setNewUser] = useState({
     username: "",
     email: "",
@@ -27,14 +27,14 @@ export function RegisterForm(props) {
 
   async function handleCreateNewUser(ev) {
     ev.preventDefault();
-    // register(newUser);
     try {
       const res = await axios.post(AUTH_URL + "register", newUser);
-      setLoginMode(true);
+      navigate("/auth");
       displaySnackBar({
         label: "You registered successfully",
       });
     } catch (err) {
+      console.log(err);
       displaySnackBar({
         label: "Error in register proccess!",
         context:
@@ -43,7 +43,6 @@ export function RegisterForm(props) {
         closeManually: true,
         type: "danger",
       });
-      console.error(err);
       // snackbar
     }
   }
@@ -78,18 +77,14 @@ export function RegisterForm(props) {
         />
         <p className=" text-xs mx-auto">
           Alredy have an account?{" "}
-          <a
-            onClick={() => {
-              setLoginMode(true);
-            }}
-            className=" font-semibold text-primary"
-            href="#"
-          >
+          <Link to={"/auth"} className=" font-semibold text-primary" href="#">
             Sign Up!
-          </a>
+          </Link>
         </p>
         <Button className="block w-full">Create Account</Button>
       </form>
     </>
   );
 }
+
+export default RegisterPage;

@@ -1,14 +1,14 @@
+import React from "react";
 import { useContext, useState } from "react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 import axios from "axios";
-import { AUTH_URL } from "@/pages/UserSetupPage";
 import { UserContext } from "@/context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SnackBarContext } from "@/context/SnackBarContext";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { AUTH_URL } from "@/components/general/AuthLayout";
 
-export function LoginForm(props) {
-  const { loginMode, setLoginMode } = props;
+function LoginPage() {
   const [newUser, setNewUser] = useState({
     username: "",
     password: "",
@@ -47,7 +47,6 @@ export function LoginForm(props) {
         type: "danger",
       });
       console.error(err);
-      console.error(err.response.data.error);
     }
   }
   return (
@@ -74,18 +73,14 @@ export function LoginForm(props) {
         />
         <p className=" text-xs mx-auto">
           Dont have an account?{" "}
-          <a
-            className=" font-semibold text-primary"
-            href="#"
-            onClick={() => {
-              setLoginMode(false);
-            }}
-          >
+          <Link className=" font-semibold text-primary" to={"register"}>
             Register
-          </a>
+          </Link>
         </p>
         <Button className="block w-full">Sign In</Button>
       </form>
     </>
   );
 }
+
+export default LoginPage;
