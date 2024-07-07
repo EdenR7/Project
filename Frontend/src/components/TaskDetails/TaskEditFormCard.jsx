@@ -5,8 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { SnackBarContext } from "@/context/SnackBarContext";
 import { CircleMinus, Minus, MoveRight, Pin, Plus } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
-// const TASK_BASE_URL = "http://localhost:3000/api/user/tasks/";
-// const USER_TASKS_URL = "http://localhost:3000/api/user/tasks/";
+
 
 export function TaskEditFormCard(props) {
   const { task, updateTask, setTask, closeModal } = props;
@@ -65,11 +64,12 @@ export function TaskEditFormCard(props) {
 
   return (
     <form
-      className="mx-auto border flex flex-col gap-2 px-4 pt-12 pb-6"
+      className="mx-auto border flex flex-col gap-4 px-4 pt-12 pb-6"
       onSubmit={handleSubmit}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 ">
         <Input
+          className=" font-semibold"
           required
           onChange={editContentField}
           value={task.title}
@@ -82,29 +82,37 @@ export function TaskEditFormCard(props) {
         className={`transition-all duration-300 ease-in-out flex flex-col gap-2 max-h-800 opacity-100 scale-y-100 `}
         style={{ transformOrigin: "top" }}
       >
-        <div className="flex items-center gap-2">
-          <label htmlFor="">
-            <Plus />
-          </label>
-          <Textarea
-            onChange={editContentField}
-            value={task.description}
-            name="description"
-            placeholder="Add a task description"
-          />
+        <div>
+          <h4 className=" text-sm font-semibold pl-3">Task's Description:</h4>
+          <div className="flex items-center gap-2">
+            <label className=" cursor-pointer" htmlFor="edit-task-description">
+              <Plus />
+            </label>
+            <Textarea
+              id="edit-task-description"
+              onChange={editContentField}
+              value={task.description}
+              name="description"
+              placeholder="Add a task description"
+            />
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <label htmlFor="">
-            <Plus />
-          </label>
-          <Textarea
-            onChange={editContentField}
-            value={task.body}
-            name="body"
-            placeholder="Add a task body content"
-          />
+        <div>
+          <h4 className=" text-sm font-semibold pl-3">Task's Body:</h4>
+          <div className="flex items-center gap-2">
+            <label className=" cursor-pointer" htmlFor="edit-task-body">
+              <Plus />
+            </label>
+            <Textarea
+              id="edit-task-body"
+              onChange={editContentField}
+              value={task.body}
+              name="body"
+              placeholder="Add a task body content"
+            />
+          </div>
         </div>
-        <div className="px-4">
+        <div className="pl-8 break-600px:px-8 my-2">
           {task.todoList.map((task, index) => {
             return (
               <div key={index} className="flex items-center gap-2 mb-2">
@@ -144,7 +152,7 @@ export function TaskEditFormCard(props) {
           <Button>Submit</Button>
         </div>
       </div>
-        {/* snack bar */}
+      {/* snack bar */}
     </form>
   );
 }

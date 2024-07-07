@@ -73,7 +73,7 @@ function CreateForm({ setTasks }) {
   return (
     <form
       ref={formRef}
-      className="mx-auto border flex flex-col gap-2 px-4 py-6 rounded-md  max-w-500"
+      className=" border flex flex-col gap-2 px-4 py-6 rounded-md  max-w-500 flex-1"
       onSubmit={handleSubmit}
     >
       <div

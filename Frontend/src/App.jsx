@@ -68,12 +68,10 @@ function App() {
   );
 }
 
-// Task Modal layout
-// Home page
-// Orginze components
-// refactors by omer : register/login
 // table mode
+// refactors by omer : register/login
 // aborting, filters
+// Home page
 // features progress, open create fields by buttons
 // improve layouts
 

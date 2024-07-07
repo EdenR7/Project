@@ -10,13 +10,12 @@ import { MyDropDownMenu } from "../ui/myDropDownMenu";
 
 export default function MainNavBar() {
   const { user, logoutUser } = useContext(UserContext);
-  // console.log(user.tasks.length);
   return (
     <>
       <nav className=" z-40 font-montserrat sticky top-0 mb-4 px-6 py-4 shadow-md bg-white break-950px:px-16">
         <ul className=" flex gap-2 justify-between items-center">
           <li>
-            <Link to="/">LOGO</Link>
+            <Link to="/">TaskEase</Link>
           </li>
           {user && (
             <li className=" hidden sm:inline">

@@ -1,6 +1,5 @@
 import { TaskItem } from "@/components/userTasks/TaskItem";
 import TaskList from "@/components/userTasks/TasksList";
-import { UserContext } from "@/context/UserContext";
 import React, { useContext, useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { Outlet, useLocation } from "react-router-dom";
@@ -8,15 +7,21 @@ import api from "@/services/api.service";
 import CreateForm from "@/components/userTasks/CreateForm";
 import SnackBar from "@/components/ui/SnackBar";
 import { SnackBarContext } from "@/context/SnackBarContext";
+import { Button } from "@/components/ui/button";
+import { List, TableProperties } from "lucide-react";
+import TaskListMode from "@/components/userTasks/TaskListMode";
+import { TaskTableMode } from "@/components/userTasks/TaskTableMode";
 
 const USER_TASKS_URL = "http://localhost:3000/api/user/tasks";
 
 function UserTasksPage() {
-  const { user, userToken } = useContext(UserContext);
+  // HOOKS
   const [tasks, setTasks] = useState([]);
+  const [tableMode, setTableMode] = useState(false);
   const location = useLocation();
   const { snackBar } = useContext(SnackBarContext);
 
+  // DERIVED STATED
   const unPinnedTasks = [];
   const pinnedTasks = tasks.filter((task) => {
     if (task.isPinned) {
@@ -25,6 +30,7 @@ function UserTasksPage() {
     unPinnedTasks.push(task);
   });
 
+  // INITIALIZATION
   useEffect(() => {
     async function getAllTasks() {
       try {
@@ -40,47 +46,41 @@ function UserTasksPage() {
   return (
     <>
       <div>
-        <CreateForm setTasks={setTasks} />
-        {pinnedTasks.length > 0 && (
+        {tableMode ? (
           <>
-            <div className=" my-14 space-y-4">
-              <h2 className=" text-xl font-semibold underline">
-                Pinned Tasks :
-              </h2>
-              <TaskList>
-                {pinnedTasks.map((task) => {
-                  return (
-                    <TaskItem
-                      tasks={tasks}
-                      setTasks={setTasks}
-                      key={task._id}
-                      task={task}
-                    />
-                  );
-                })}
-              </TaskList>
+            <div className=" flex justify-center gap-4">
+              <CreateForm setTasks={setTasks} />
+              <Button
+                className=" mt-6"
+                onClick={() => {
+                  setTableMode(false);
+                }}
+              >
+                <List />
+              </Button>
             </div>
+            <TaskTableMode tasks={tasks} />
           </>
-        )}
-        {unPinnedTasks.length > 0 && pinnedTasks.length > 0 && <Separator />}
-        {unPinnedTasks.length > 0 && (
-          <div className=" my-12 space-y-4">
-            <h2 className=" text-xl font-semibold underline">
-              UnPinned Tasks :
-            </h2>
-            <TaskList>
-              {unPinnedTasks.map((task) => {
-                return (
-                  <TaskItem
-                    tasks={tasks}
-                    setTasks={setTasks}
-                    key={task._id}
-                    task={task}
-                  />
-                );
-              })}
-            </TaskList>
-          </div>
+        ) : (
+          <>
+            <div className=" flex justify-center gap-4">
+              <CreateForm setTasks={setTasks} />
+              <Button
+                className=" mt-6"
+                onClick={() => {
+                  setTableMode(true);
+                }}
+              >
+                <TableProperties />
+              </Button>
+            </div>
+            <TaskListMode
+              tasks={tasks}
+              setTasks={setTasks}
+              pinnedTasks={pinnedTasks}
+              unPinnedTasks={unPinnedTasks}
+            />
+          </>
         )}
       </div>
       {snackBar.display && <SnackBar />}

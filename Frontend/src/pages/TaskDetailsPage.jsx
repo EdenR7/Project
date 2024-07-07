@@ -2,36 +2,24 @@ import { TaskDetailsCard } from "@/components/TaskDetails/TaskDetailsCard";
 import { TaskEditFormCard } from "@/components/TaskDetails/TaskEditFormCard";
 import Modal from "@/components/ui/Modal";
 import SnackBar from "@/components/ui/SnackBar";
-import { ToolTipWrapper } from "@/components/ui/ToolTipWrapper";
 import { Button } from "@/components/ui/button";
-import {
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { SnackBarContext } from "@/context/SnackBarContext";
 import { TaskEditContext } from "@/context/TaskEditContext";
 import api from "@/services/api.service";
-import { CircleMinus, Minus, MoveRight, Pin, Plus } from "lucide-react";
+import { MoveRight } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-// const TASK_BASE_URL = "http://localhost:3000/api/user/tasks/";
-// const USER_TASKS_URL = "http://localhost:3000/api/user/tasks/";
-
 
 function TaskDetails() {
+  // HOOKS
   const { editMode, removeEditMode } = useContext(TaskEditContext);
-  const { snackBar, setSnackBar, displaySnackBar, closeSnackBar } =
-    useContext(SnackBarContext);
+  const { snackBar, displaySnackBar } = useContext(SnackBarContext);
   const [newContentTask, setNewContentTask] = useState(null);
   const [task, setTask] = useState(null);
   const { id: taskId } = useParams();
   const navigate = useNavigate();
 
+  // INITIALIZTION
   useEffect(() => {
     async function getTask() {
       try {
@@ -47,10 +35,10 @@ function TaskDetails() {
         console.error(err);
       }
     }
-
     getTask();
   }, []);
 
+  // un/check todo
   function handleTodoChange(ev) {
     const targetTodo = task.todoList.find((todo) => todo._id === ev.target.id);
     targetTodo.isComplete = !targetTodo.isComplete;
@@ -65,14 +53,15 @@ function TaskDetails() {
     updateTask(newTodoList);
   }
 
-  function handlePinChange(ev) {
-    console.log(1);
+  // un/pin the task
+  function handlePinChange() {
     const newTodoList = {
       isPinned: !task.isPinned,
     };
     updateTask(newTodoList);
   }
 
+  // general update task
   async function updateTask(newfields) {
     try {
       const res = await api.patch("/user/tasks/" + task._id, newfields);
@@ -94,6 +83,7 @@ function TaskDetails() {
   }
 
   function closeModal() {
+    // always reset the edit mode context value
     removeEditMode();
     navigate("/user");
   }
@@ -105,20 +95,20 @@ function TaskDetails() {
           <MoveRight />
         </Button>
         {task &&
-          (!editMode ? (
+          (editMode ? (
             <>
-              <TaskDetailsCard
+              <TaskEditFormCard
                 task={task}
-                handlePinChange={handlePinChange}
-                handleTodoChange={handleTodoChange}
+                updateTask={updateTask}
+                setTask={setTask}
+                closeModal={closeModal}
               />
             </>
           ) : (
-            <TaskEditFormCard
+            <TaskDetailsCard
               task={task}
-              updateTask={updateTask}
-              setTask={setTask}
-              closeModal={closeModal}
+              handlePinChange={handlePinChange}
+              handleTodoChange={handleTodoChange}
             />
           ))}
       </Modal>
