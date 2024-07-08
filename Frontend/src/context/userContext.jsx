@@ -1,7 +1,7 @@
-import axios from "axios";
+import api from "@/services/api.service";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-const USER_BASE_URL = "http://localhost:3000/api/user";
+const USER_BASE_URL = "/user";
 
 export const UserContext = createContext({
   user: {
@@ -21,11 +21,7 @@ export function UserContextProvider({ children }) {
 
   async function loginUserContext(token) {
     try {
-      const res = await axios.get(USER_BASE_URL, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const res = await api.get(USER_BASE_URL);
       const { data: newUser } = res;
       setUser(newUser);
     } catch (err) {
@@ -54,4 +50,3 @@ export function UserContextProvider({ children }) {
     </UserContext.Provider>
   );
 }
-

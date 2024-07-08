@@ -1,12 +1,12 @@
 import React from "react";
 import { useContext, useState } from "react";
-import axios from "axios";
 import { UserContext } from "@/context/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import { SnackBarContext } from "@/context/SnackBarContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AUTH_URL } from "@/components/general/AuthLayout";
+import api from "@/services/api.service";
 
 function LoginPage() {
   const [newUser, setNewUser] = useState({
@@ -29,7 +29,7 @@ function LoginPage() {
   async function handleLoginUser(ev) {
     ev.preventDefault();
     try {
-      const res = await axios.post(AUTH_URL + "login", newUser);
+      const res = await api.post(AUTH_URL + "login", newUser);
       const { token } = res.data;
       localStorage.setItem("userToken", token);
       loginUserContext(token);

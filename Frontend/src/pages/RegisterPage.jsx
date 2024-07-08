@@ -1,11 +1,11 @@
 import { LockKeyhole } from "lucide-react";
 import { useContext, useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { SnackBarContext } from "@/context/SnackBarContext";
 import { IconInput, Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AUTH_URL } from "@/components/general/AuthLayout";
+import api from "@/services/api.service";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ function RegisterPage() {
   async function handleCreateNewUser(ev) {
     ev.preventDefault();
     try {
-      const res = await axios.post(AUTH_URL + "register", newUser);
+      await api.post(AUTH_URL + "register", newUser);
       navigate("/auth");
       displaySnackBar({
         label: "You registered successfully",

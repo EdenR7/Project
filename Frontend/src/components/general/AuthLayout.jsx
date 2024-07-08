@@ -3,7 +3,7 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { SnackBarContext } from "@/context/SnackBarContext";
 import SnackBar from "@/components/ui/SnackBar";
 import { Outlet, useLocation, useParams } from "react-router-dom";
-export const AUTH_URL = "http://localhost:3000/api/auth/";
+export const AUTH_URL = "/auth/";
 
 function AuthLayout() {
   const location = useLocation();
