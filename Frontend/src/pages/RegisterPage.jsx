@@ -43,7 +43,6 @@ function RegisterPage() {
         closeManually: true,
         type: "danger",
       });
-      // snackbar
     }
   }
 

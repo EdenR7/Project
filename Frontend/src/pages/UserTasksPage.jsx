@@ -33,15 +33,25 @@ function UserTasksPage() {
 
   // INITIALIZATION
   useEffect(() => {
+    const abortController = new AbortController();
     async function getAllTasks() {
       try {
-        const res = await api.get("/user/tasks");
+        const res = await api.get("/user/tasks", {
+          signal: abortController.signal,
+        });
         setTasks(res.data);
       } catch (err) {
+        if (err.name === "CanceledError") {
+          console.log("Aborted req");
+          return;
+        }
         console.error(err);
       }
     }
     getAllTasks();
+    return () => {
+      abortController.abort();
+    };
   }, [location.pathname]);
 
   return (

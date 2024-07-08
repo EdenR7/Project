@@ -1,6 +1,7 @@
 import api from "@/services/api.service";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SnackBarContext } from "./SnackBarContext";
 const USER_BASE_URL = "/user";
 
 export const UserContext = createContext({
@@ -15,11 +16,12 @@ export const UserContext = createContext({
 });
 
 export function UserContextProvider({ children }) {
+  const { displaySnackBar } = useContext(SnackBarContext);
   const [user, setUser] = useState(undefined);
   const navigate = useNavigate();
   const userToken = localStorage.getItem("userToken");
 
-  async function loginUserContext(token) {
+  async function loginUserContext() {
     try {
       const res = await api.get(USER_BASE_URL);
       const { data: newUser } = res;
@@ -30,6 +32,9 @@ export function UserContextProvider({ children }) {
   }
   async function logoutUser() {
     setUser(null);
+    displaySnackBar({
+      label: "Sign Out successfully",
+    });
     localStorage.removeItem("userToken");
     navigate("/");
   }

@@ -73,13 +73,9 @@ function App() {
   );
 }
 
-// links in home page buttons
-// snack bar at logout
 // orginze code
 // not found page
-// aborting
 // features progress, open create fields by buttons
-// filters
 // Home page
 // improve layouts
 

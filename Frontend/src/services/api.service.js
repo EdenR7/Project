@@ -15,19 +15,6 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-// api.interceptors.request.use(
-//   (config) => {
-//     let token = localStorage.getItem("userToken");
-//     // removing the first and last character of the token, which are quotes
-//     token = token?.slice(1, -1);
-
-//     if (token) config.headers.Authorization = `Bearer ${token}`;
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
 
 api.interceptors.response.use(
   (response) => response,
@@ -39,6 +26,9 @@ api.interceptors.response.use(
       // No response was received
       console.error("Error request:", error.request);
     } else {
+      if (error.name === "CanceledError") {
+        throw error;
+      }
       // Something else triggered the error
       console.error("Error message:", error.message);
     }

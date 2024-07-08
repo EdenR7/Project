@@ -10,13 +10,13 @@ import { TaskEditContextProvider } from "./context/TaskEditContext.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <UserContextProvider>
-        <SnackBarCtxProvider>
+      <SnackBarCtxProvider>
+        <UserContextProvider>
           <TaskEditContextProvider>
             <App />
           </TaskEditContextProvider>
-        </SnackBarCtxProvider>
-      </UserContextProvider>
+        </UserContextProvider>
+      </SnackBarCtxProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

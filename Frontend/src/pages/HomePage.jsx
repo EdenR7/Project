@@ -51,7 +51,11 @@ function HomePage() {
             productivity effortlessly.
           </p>
           <Button className=" max-w-36" asChild>
-            {user ? <Link>To Your Tasks</Link> : <Link>Sign up now </Link>}
+            {user ? (
+              <Link to={"/user"}>To Your Tasks</Link>
+            ) : (
+              <Link to={"/auth"}>Sign up now </Link>
+            )}
           </Button>
         </header>
       </section>

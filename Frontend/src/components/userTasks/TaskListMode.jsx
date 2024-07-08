@@ -2,9 +2,31 @@ import React from "react";
 import TaskList from "./TasksList";
 import { TaskItem } from "./TaskItem";
 import { Separator } from "../ui/separator";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 function TaskListMode(props) {
   const { tasks, setTasks, pinnedTasks, unPinnedTasks } = props;
+
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const reorderedTasks = Array.from(pinnedTasks);
+    const [movedTask] = reorderedTasks.splice(result.source.index, 1);
+    reorderedTasks.splice(result.destination.index, 0, movedTask);
+
+    const updatedTasks = tasks.map((task) => {
+      const reorderedTask = reorderedTasks.find((t) => t._id === task._id);
+      return reorderedTask ? reorderedTask : task;
+    });
+
+    setTasks(updatedTasks);
+
+    // Update task order in the backend (optional)
+    // await api.put('/user/tasks/updateOrder', updatedTasks);
+  };
+
   return (
     <>
       {pinnedTasks.length > 0 && (
