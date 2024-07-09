@@ -24,14 +24,13 @@ export function TaskItem(props) {
     (acc, todo) => (todo.isComplete ? acc + 1 : acc),
     0
   );
-  let taskBg;
-  if (task.bgColor === "white") {
-    taskBg = "background";
-  } else {
+  let taskBg = "bg-background";
+
+  if (task.bgColor !== "white") {
     if (theme === "dark") {
-      taskBg = task.bgColor + "-800";
+      taskBg = `bg-${task.bgColor}-800`;
     } else {
-      taskBg = task.bgColor + "-200";
+      taskBg = `bg-${task.bgColor}-200`;
     }
   }
 
@@ -94,7 +93,7 @@ export function TaskItem(props) {
   return (
     <li key={task._id}>
       <Card
-        className={`relative p-6 bg-${taskBg} shadow-md transition-all hover:-translate-y-1`}
+        className={`relative p-6 shadow-md transition-all hover:-translate-y-1 ${taskBg}`}
       >
         <div className="flex justify-between mb-4">
           <MyProgressBar
