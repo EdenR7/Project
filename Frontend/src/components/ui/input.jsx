@@ -22,11 +22,11 @@ const IconInput = React.forwardRef(
     return (
       <div className="relative">
         <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-          <Icon className="text-gray-500 text-sm" />
+          <Icon size={14} className="text-gray-500 text-sm" />
         </span>
         <input
           type={type}
-          className="pl-10 p-2 border rounded-lg w-full"
+          className="pl-10 p-2 text-sm border outline-primary rounded-lg w-full bg-background"
           ref={ref}
           {...props}
         />

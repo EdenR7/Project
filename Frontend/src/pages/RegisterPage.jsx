@@ -1,4 +1,4 @@
-import { LockKeyhole } from "lucide-react";
+import { LockKeyhole, Mail, User } from "lucide-react";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SnackBarContext } from "@/context/SnackBarContext";
@@ -49,7 +49,8 @@ function RegisterPage() {
   return (
     <>
       <form className=" flex flex-col gap-3" onSubmit={handleCreateNewUser}>
-        <Input
+        <IconInput
+          Icon={User}
           value={newUser.username}
           onChange={handleInputChange}
           type="text"
@@ -57,7 +58,8 @@ function RegisterPage() {
           name="username"
           required
         />
-        <Input
+        <IconInput
+          Icon={Mail}
           value={newUser.email}
           onChange={handleInputChange}
           type="email"

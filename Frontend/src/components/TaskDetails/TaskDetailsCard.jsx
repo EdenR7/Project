@@ -47,7 +47,7 @@ export function TaskDetailsCard(props) {
                 <label
                   htmlFor={todo._id}
                   className={`${
-                    todo.isComplete && " line-through text-gray-300"
+                    todo.isComplete && " line-through text-gray-500"
                   } cursor-pointer`}
                   onClick={(ev) => {
                     ev.stopPropagation();

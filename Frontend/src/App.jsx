@@ -9,6 +9,9 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import AuthLayout from "./components/general/AuthLayout";
 import NotFoundPage from "./pages/NotFoundPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import TermsPage from "./pages/TermsPage";
 
 function AuthorizedRoute({ children }) {
   const { user } = useContext(UserContext);
@@ -43,6 +46,9 @@ function App() {
         <Routes>
           <Route path="/" element={<DefaultLayout />}>
             <Route index element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/terms" element={<TermsPage />} />
             <Route
               path="/user"
               element={
@@ -75,9 +81,9 @@ function App() {
   );
 }
 
-// features color
+// footer
+// contact about and terms page
 // Home page
 // orginze code
-// improve layouts
 
 export default App;

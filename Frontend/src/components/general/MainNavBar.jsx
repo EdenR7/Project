@@ -5,7 +5,6 @@ import { useContext, useState } from "react";
 import { UserContext } from "@/context/UserContext";
 import { DropdownMenuCheckboxItem } from "../ui/dropdown-menu";
 // import { DropdownMenuCheckboxes } from "../ui/myDropDownMenu";
-import { Button } from "../ui/button";
 import { MyDropDownMenu } from "../ui/myDropDownMenu";
 import { ModeToggle } from "../ui/ModeToggle";
 
@@ -16,10 +15,10 @@ export default function MainNavBar() {
       <nav className=" z-40 font-montserrat sticky top-0 mb-4 px-6 py-4 shadow-md bg-background dark:border-b dark:border-gray-200 break-950px:px-16">
         <ul className=" flex gap-2 justify-between items-center">
           <li>
-            <Link to="/">TaskEase</Link>
+            <Link className=" text-xl font-semibold text-primary" to="/">TaskEase</Link>
           </li>
           {user && (
-            <li className=" hidden sm:inline">
+            <li className=" hidden md:inline">
               {user.tasks.length ? (
                 <p>
                   Hello <span className=" font-semibold">{user.username} </span>

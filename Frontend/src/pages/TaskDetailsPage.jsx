@@ -2,6 +2,7 @@ import { TaskDetailsCard } from "@/components/TaskDetails/TaskDetailsCard";
 import { TaskEditFormCard } from "@/components/TaskDetails/TaskEditFormCard";
 import Modal from "@/components/ui/Modal";
 import SnackBar from "@/components/ui/SnackBar";
+import { useTheme } from "@/components/ui/ThemeProvider";
 import { Button } from "@/components/ui/button";
 import { SnackBarContext } from "@/context/SnackBarContext";
 import { TaskEditContext } from "@/context/TaskEditContext";
@@ -18,6 +19,17 @@ function TaskDetails() {
   const [task, setTask] = useState(null);
   const { id: taskId } = useParams();
   const navigate = useNavigate();
+  const { theme } = useTheme();
+
+  let taskBg = "bg-background";
+
+  if (task?.bgColor !== "white") {
+    if (theme === "dark") {
+      taskBg = `bg-${task?.bgColor}-800`;
+    } else {
+      taskBg = `bg-${task?.bgColor}-200`;
+    }
+  }
 
   // INITIALIZTION
   useEffect(() => {
@@ -90,7 +102,7 @@ function TaskDetails() {
 
   return (
     <div>
-      <Modal className="min-h-80 w-2/3 max-w-md overflow-hidden">
+      <Modal className={`min-h-80 w-2/3 max-w-md overflow-hidden ${taskBg}`}>
         <Button className="fixed top-1 px-4 right-1" onClick={closeModal}>
           <MoveRight />
         </Button>

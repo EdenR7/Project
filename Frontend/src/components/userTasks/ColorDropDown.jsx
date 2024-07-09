@@ -61,7 +61,7 @@ function ColorDropDown({ updateTask }) {
               updateTask({ bgColor: "white" });
             }}
           >
-            White <div className="bg-white h-3 w-3 rounded-full border"></div>
+            Default <div className="bg-background h-4 w-4 rounded-full border-2"></div>
           </div>
         </DropdownMenuCheckboxItem>,
       ]}

@@ -4,9 +4,10 @@ import { UserContext } from "@/context/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import { SnackBarContext } from "@/context/SnackBarContext";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { IconInput, Input } from "@/components/ui/input";
 import { AUTH_URL } from "@/components/general/AuthLayout";
 import api from "@/services/api.service";
+import { LockKeyhole, User } from "lucide-react";
 
 function LoginPage() {
   const [newUser, setNewUser] = useState({
@@ -55,7 +56,8 @@ function LoginPage() {
         className=" w-full max-w-80 flex flex-col gap-4"
         onSubmit={handleLoginUser}
       >
-        <Input
+        <IconInput
+          Icon={User}
           value={newUser.username}
           onChange={handleInputChange}
           type="text"
@@ -63,10 +65,11 @@ function LoginPage() {
           name="username"
           required
         />
-        <Input
+        <IconInput
           name="password"
           value={newUser.password}
           onChange={handleInputChange}
+          Icon={LockKeyhole}
           placeholder="Password"
           type="password"
           required

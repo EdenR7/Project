@@ -64,7 +64,7 @@ export function TaskEditFormCard(props) {
 
   return (
     <form
-      className="mx-auto border flex flex-col gap-4 px-4 pt-12 pb-6"
+      className="mx-auto border bg-background flex flex-col gap-4 px-4 pt-12 pb-6"
       onSubmit={handleSubmit}
     >
       <div className="flex items-center gap-2 ">
@@ -140,7 +140,7 @@ export function TaskEditFormCard(props) {
           })}
           <div className=" flex gap-4">
             <button type="button" onClick={handleNewTodoField}>
-              <Plus size={16} color="#000000" />
+              <Plus size={16} />
             </button>
             <p className=" text-sm">Add new task's todo</p>
           </div>

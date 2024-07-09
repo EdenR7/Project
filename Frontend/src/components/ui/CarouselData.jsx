@@ -19,15 +19,16 @@ export function CarouselData({ itemsList }) {
     >
       <CarouselContent>
         {itemsList.map((item, index) => (
-          <CarouselItem key={index} className="md:basis-1/2 xl:basis-1/3 ">
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex flex-col gap-2 aspect-square items-center justify-center text-center p-6">
-                  <CardTitle className=" text-xl ">{item.title}</CardTitle>
-                  <span className="  text-sm">{item.body}</span>
-                </CardContent>
-              </Card>
-            </div>
+          <CarouselItem
+            key={index}
+            className="break-650px:basis-1/2 break-1000px:basis-1/3  "
+          >
+            <Card className="overflow-hidden h-full p-0">
+              <CardContent className=" flex flex-col gap-2 aspect-square items-center justify-center text-center py-6">
+                <CardTitle className=" text-xl ">{item.title}</CardTitle>
+                <span className="  text-sm">{item.body}</span>
+              </CardContent>
+            </Card>
           </CarouselItem>
         ))}
       </CarouselContent>

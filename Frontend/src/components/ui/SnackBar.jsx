@@ -30,15 +30,17 @@ function SnackBar() {
         )}
 
         <div className=" flex flex-col">
-          <h3 className=" text-sm font-semibold">{snackBar.label}</h3>
-          <p>{snackBar.context}</p>
+          <h3 className=" text-sm text-background font-bold">
+            {snackBar.label}
+          </h3>
+          <p className=" text-background text-xs">{snackBar.context}</p>
         </div>
       </div>
 
       {snackBar.closeManually ? (
         <Button
           className={
-            " absolute top-0 right-0 transition-all hover:scale-110 hover:text-gray-600"
+            " absolute top-0 right-0  text-background transition-all hover:scale-110 hover:text-gray-600"
           }
           variant="naked"
           onClick={() => {

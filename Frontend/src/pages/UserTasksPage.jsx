@@ -1,7 +1,4 @@
-import { TaskItem } from "@/components/userTasks/TaskItem";
-import TaskList from "@/components/userTasks/TasksList";
-import React, { useContext, useEffect, useState } from "react";
-import { Separator } from "@/components/ui/separator";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import api from "@/services/api.service";
 import CreateForm from "@/components/userTasks/CreateForm";
@@ -12,15 +9,19 @@ import { List, TableProperties } from "lucide-react";
 import TaskListMode from "@/components/userTasks/TaskListMode";
 import { TaskTableMode } from "@/components/userTasks/TaskTableMode";
 import { ToolTipWrapper } from "@/components/ui/ToolTipWrapper";
+import { Loader } from "@/components/ui/Loader";
 
 const USER_TASKS_URL = "http://localhost:3000/api/user/tasks";
 
 function UserTasksPage() {
   // HOOKS
   const [tasks, setTasks] = useState([]);
+  const [loader, setLoader] = useState(false);
   const [tableMode, setTableMode] = useState(false);
   const location = useLocation();
   const { snackBar } = useContext(SnackBarContext);
+
+  const abortControllerRef = useRef(null);
 
   // DERIVED STATED
   const unPinnedTasks = [];
@@ -33,11 +34,11 @@ function UserTasksPage() {
 
   // INITIALIZATION
   useEffect(() => {
-    const abortController = new AbortController();
+    abortControllerRef.current = new AbortController();
     async function getAllTasks() {
       try {
         const res = await api.get("/user/tasks", {
-          signal: abortController.signal,
+          signal: abortControllerRef.current.signal,
         });
         setTasks(res.data);
       } catch (err) {
@@ -46,18 +47,23 @@ function UserTasksPage() {
           return;
         }
         console.error(err);
+      } finally {
+        setLoader(false);
       }
     }
+    setLoader(true);
     getAllTasks();
     return () => {
-      abortController.abort();
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
     };
   }, [location.pathname]);
 
   return (
     <>
       <div>
-        {tableMode ? (
+        {tableMode && !loader ? (
           <>
             <div className=" flex justify-center gap-4">
               <CreateForm setTasks={setTasks} />
@@ -74,7 +80,7 @@ function UserTasksPage() {
                 </ToolTipWrapper>
               )}
             </div>
-            <TaskTableMode tasks={tasks} />
+            <TaskTableMode loader={loader} tasks={tasks} />
           </>
         ) : (
           <>
@@ -94,6 +100,7 @@ function UserTasksPage() {
               )}
             </div>
             <TaskListMode
+              loader={loader}
               tasks={tasks}
               setTasks={setTasks}
               pinnedTasks={pinnedTasks}
