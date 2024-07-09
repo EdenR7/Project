@@ -2,24 +2,11 @@ import React from "react";
 import TaskList from "./TasksList";
 import { TaskItem } from "./TaskItem";
 import { Separator } from "../ui/separator";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Loader } from "../ui/Loader";
 import { Skeleton } from "../ui/skeleton";
 
 function TaskListMode(props) {
   const { tasks, setTasks, pinnedTasks, unPinnedTasks, loader } = props;
-
-  const onDragEnd = (result) => {
-    if (!result.destination) {
-      return;
-    }
-
-    const updatedTasks = Array.from(tasks);
-    const [reorderedTask] = updatedTasks.splice(result.source.index, 1);
-    updatedTasks.splice(result.destination.index, 0, reorderedTask);
-
-    setTasks(updatedTasks);
-  };
 
   return (
     <>

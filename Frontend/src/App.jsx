@@ -31,7 +31,7 @@ function UnAuthorizedRoute({ children }) {
 
   return children;
 }
-function ProtectedLayout() {
+function ProtectedLayout() { // wrap all this routes with the protected layout
   return (
     <>
       <Outlet />

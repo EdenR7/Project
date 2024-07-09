@@ -30,7 +30,7 @@ const carouselDivs = [
 ];
 
 function HomePage() {
-  const { user, logoutUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { snackBar } = useContext(SnackBarContext);
   return (
     <>

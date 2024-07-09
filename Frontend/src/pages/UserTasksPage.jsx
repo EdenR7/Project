@@ -9,9 +9,7 @@ import { List, TableProperties } from "lucide-react";
 import TaskListMode from "@/components/userTasks/TaskListMode";
 import { TaskTableMode } from "@/components/userTasks/TaskTableMode";
 import { ToolTipWrapper } from "@/components/ui/ToolTipWrapper";
-import { Loader } from "@/components/ui/Loader";
 
-const USER_TASKS_URL = "http://localhost:3000/api/user/tasks";
 
 function UserTasksPage() {
   // HOOKS

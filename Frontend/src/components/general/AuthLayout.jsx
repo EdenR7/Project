@@ -7,8 +7,7 @@ export const AUTH_URL = "/auth/";
 
 function AuthLayout() {
   const location = useLocation();
-  const { snackBar, setSnackBar, displaySnackBar, closeSnackBar } =
-    useContext(SnackBarContext);
+  const { snackBar } = useContext(SnackBarContext);
 
   return (
     <>

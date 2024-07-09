@@ -21,7 +21,7 @@ function TaskDetails() {
   const navigate = useNavigate();
   const { theme } = useTheme();
 
-  let taskBg = "bg-background";
+  let taskBg = "bg-background"; // define the bd color by the scheme
 
   if (task?.bgColor !== "white") {
     if (theme === "dark") {
