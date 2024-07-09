@@ -36,7 +36,6 @@ export function TaskCard(props) {
         </CardDescription>
       </CardHeader>
       <CardContent className=" p-1 space-y-2">
-        {/* <p className=" text-sm">{task.body}</p> */}
         <ul className=" flex flex-col gap-2 text-xs mx-2 p-1">
           {task.todoList.map((todo) => {
             return (
@@ -49,7 +48,7 @@ export function TaskCard(props) {
                 <label
                   htmlFor={todo._id}
                   className={`${
-                    todo.isComplete && " line-through text-gray-300"
+                    todo.isComplete && " line-through text-gray-500"
                   } cursor-pointer`}
                   onClick={(ev) => {
                     ev.stopPropagation();

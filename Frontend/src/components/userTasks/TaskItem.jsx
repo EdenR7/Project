@@ -1,4 +1,4 @@
-import { EllipsisVertical, Pencil, Trash2 } from "lucide-react";
+import { EllipsisVertical, Palette, Pencil, Trash2 } from "lucide-react";
 import { Card } from "../ui/card";
 import { useNavigate } from "react-router-dom";
 import api from "@/services/api.service";
@@ -10,8 +10,11 @@ import { SnackBarContext } from "@/context/SnackBarContext";
 import { TaskEditContext } from "@/context/TaskEditContext";
 import { TaskCard } from "./TaskCard";
 import { MyProgressBar } from "../ui/ProgressBar";
+import { useTheme } from "../ui/ThemeProvider";
+import ColorDropDown from "./ColorDropDown";
 
 export function TaskItem(props) {
+  const { theme } = useTheme();
   const { task, setTasks, tasks } = props;
   const navigate = useNavigate();
   const { snackBar, displaySnackBar } = useContext(SnackBarContext);
@@ -21,6 +24,16 @@ export function TaskItem(props) {
     (acc, todo) => (todo.isComplete ? acc + 1 : acc),
     0
   );
+  let taskBg;
+  if (task.bgColor === "white") {
+    taskBg = "background";
+  } else {
+    if (theme === "dark") {
+      taskBg = task.bgColor + "-800";
+    } else {
+      taskBg = task.bgColor + "-200";
+    }
+  }
 
   function handleTodoChange(ev) {
     ev.stopPropagation();
@@ -47,7 +60,6 @@ export function TaskItem(props) {
   async function updateTask(newfields) {
     try {
       const res = await api.patch("/user/tasks/" + task._id, newfields);
-
       const updatedTasks = tasks.map((task) =>
         task._id === res.data._id ? res.data : task
       );
@@ -81,7 +93,9 @@ export function TaskItem(props) {
 
   return (
     <li key={task._id}>
-      <Card className=" relative p-6  shadow-md transition-all hover:-translate-y-1">
+      <Card
+        className={`relative p-6 bg-${taskBg} shadow-md transition-all hover:-translate-y-1`}
+      >
         <div className="flex justify-between mb-4">
           <MyProgressBar
             completedTodos={completedTodos}
@@ -103,6 +117,7 @@ export function TaskItem(props) {
                   Edit <Pencil size={14} />
                 </p>
               </DropdownMenuCheckboxItem>,
+              <ColorDropDown updateTask={updateTask} />,
               <DropdownMenuCheckboxItem className=" text-red-500 font-semibold hover:text-red-600 cursor-pointer hover:bg-slate-50">
                 <p
                   className=" flex gap-2 items-center text-sm"

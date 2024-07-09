@@ -24,7 +24,7 @@ function TaskListMode(props) {
       <DragDropContext onDragEnd={onDragEnd}>
         {pinnedTasks.length > 0 && (
           <>
-            <div className=" my-14 space-y-4">
+            <div className=" my-14 space-y-4 ">
               <h2 className=" text-xl font-semibold underline">
                 Pinned Tasks :
               </h2>

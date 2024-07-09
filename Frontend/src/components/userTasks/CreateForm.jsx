@@ -76,7 +76,7 @@ function CreateForm({ setTasks }) {
   return (
     <form
       ref={formRef}
-      className=" border flex flex-col gap-2 px-4 py-6 rounded-md  max-w-500 flex-1"
+      className=" border flex flex-col gap-2 px-4 py-6 rounded-md dark:border-slate-500  max-w-500 flex-1"
       onSubmit={handleSubmit}
     >
       <div
@@ -86,6 +86,7 @@ function CreateForm({ setTasks }) {
         }}
       >
         <Input
+          className="  dark:border-slate-500"
           required
           name="title"
           id="new-task-title"
@@ -111,6 +112,7 @@ function CreateForm({ setTasks }) {
               />
             </label>
             <Textarea
+              className="  dark:border-slate-500"
               id="new-task-description"
               name="description"
               placeholder="Add a task description"
@@ -141,6 +143,7 @@ function CreateForm({ setTasks }) {
               />
             </label>
             <Textarea
+              className="  dark:border-slate-500"
               id="new-task-body"
               name="body"
               placeholder="Add a task body content"
@@ -175,6 +178,7 @@ function CreateForm({ setTasks }) {
                   <Plus className=" cursor-pointer" />
                 </label>
                 <Input
+                  className="  dark:border-slate-500"
                   value={element}
                   onChange={(ev) => {
                     handleTodoChange(ev, index);
