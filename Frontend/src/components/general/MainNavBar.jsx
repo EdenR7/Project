@@ -7,12 +7,13 @@ import { DropdownMenuCheckboxItem } from "../ui/dropdown-menu";
 // import { DropdownMenuCheckboxes } from "../ui/myDropDownMenu";
 import { Button } from "../ui/button";
 import { MyDropDownMenu } from "../ui/myDropDownMenu";
+import { ModeToggle } from "../ui/ModeToggle";
 
 export default function MainNavBar() {
   const { user, logoutUser } = useContext(UserContext);
   return (
     <>
-      <nav className=" z-40 font-montserrat sticky top-0 mb-4 px-6 py-4 shadow-md bg-white break-950px:px-16">
+      <nav className=" z-40 font-montserrat sticky top-0 mb-4 px-6 py-4 shadow-md bg-background dark:border-b dark:border-gray-200 break-950px:px-16">
         <ul className=" flex gap-2 justify-between items-center">
           <li>
             <Link to="/">TaskEase</Link>
@@ -73,6 +74,7 @@ export default function MainNavBar() {
                 </span>
               </Link>
             )}
+            <ModeToggle />
           </li>
         </ul>
       </nav>

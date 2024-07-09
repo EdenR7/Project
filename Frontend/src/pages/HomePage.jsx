@@ -34,7 +34,7 @@ function HomePage() {
   const { snackBar } = useContext(SnackBarContext);
   return (
     <>
-      <section className=" items-center p-2 rounded-md bg-gradient-to-r from-white  to-blue-100  break-950px:flex break-950px:py-20 break-950px:shadow-md">
+      <section className=" items-center p-2 rounded-md bg-gradient-to-r from-background  to-blue-100  break-950px:flex break-950px:py-20 break-950px:shadow-md">
         <div className=" order-2 max-h-600">
           <img
             className=" mx-auto order-last"

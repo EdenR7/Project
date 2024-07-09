@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,8 @@ const USER_TASKS_URL = "/user/tasks";
 
 function CreateForm({ setTasks }) {
   const [openForm, setOpenForm] = useToggle(false);
+  const [addDesc, setAddDesc] = useState(false);
+  const [addBody, setAddBody] = useState(false);
   const [todos, setTodos] = useState([""]);
   const formRef = useRef(null);
   const { snackBar, setSnackBar, displaySnackBar, closeSnackBar } =
@@ -28,6 +30,7 @@ function CreateForm({ setTasks }) {
     });
     data.todoList = todoListValue;
     createTask(data);
+    setTodos([""]);
   }
   function handleTodoChange(ev, curIndex) {
     setTodos((prev) => {
@@ -97,18 +100,66 @@ function CreateForm({ setTasks }) {
         }`}
         style={{ transformOrigin: "top" }}
       >
-        <div className="flex items-center gap-2">
-          <label htmlFor="">
-            <Plus />
-          </label>
-          <Textarea name="description" placeholder="Add a task description" />
-        </div>
-        <div className="flex items-center gap-2">
-          <label htmlFor="">
-            <Plus />
-          </label>
-          <Textarea name="body" placeholder="Add a task body content" />
-        </div>
+        {addDesc ? (
+          <div className="flex items-center gap-2">
+            <label htmlFor="new-task-description">
+              <Minus
+                className=" cursor-pointer"
+                onClick={() => {
+                  setAddDesc(false);
+                }}
+              />
+            </label>
+            <Textarea
+              id="new-task-description"
+              name="description"
+              placeholder="Add a task description"
+            />
+          </div>
+        ) : (
+          <div
+            className=" flex gap-2 cursor-pointer my-2 "
+            onClick={() => {
+              setAddDesc(true);
+            }}
+          >
+            <span>
+              <Plus />
+            </span>{" "}
+            <p className=" text-sm text-gray-400">Add Task's description...</p>
+          </div>
+        )}
+
+        {addBody ? (
+          <div className="flex items-center gap-2">
+            <label htmlFor="new-task-body">
+              <Minus
+                className=" cursor-pointer"
+                onClick={() => {
+                  setAddBody(false);
+                }}
+              />
+            </label>
+            <Textarea
+              id="new-task-body"
+              name="body"
+              placeholder="Add a task body content"
+            />
+          </div>
+        ) : (
+          <div
+            className=" flex gap-2 cursor-pointer my-2 "
+            onClick={() => {
+              setAddBody(true);
+            }}
+          >
+            <span>
+              <Plus />
+            </span>{" "}
+            <p className=" text-sm text-gray-400">Add Task's Body content...</p>
+          </div>
+        )}
+
         <div className="px-9">
           <h4>Add task's todos</h4>
           {todos.map((element, index) => {

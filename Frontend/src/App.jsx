@@ -8,6 +8,7 @@ import TaskDetails from "./pages/TaskDetailsPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import AuthLayout from "./components/general/AuthLayout";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function AuthorizedRoute({ children }) {
   const { user } = useContext(UserContext);
@@ -67,16 +68,16 @@ function App() {
             <Route index element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
           </Route>
+          <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </>
   );
 }
 
-// orginze code
-// not found page
-// features progress, open create fields by buttons
+// features color
 // Home page
+// orginze code
 // improve layouts
 
 export default App;

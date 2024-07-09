@@ -12,7 +12,7 @@ export function TaskCard(props) {
   const { task, moveToTaskPage, handlePinChange, handleTodoChange } = props;
   return (
     <div
-      className=" flex flex-col gap-4 cursor-pointer"
+      className=" flex flex-col gap-4 cursor-pointer "
       onClick={moveToTaskPage}
     >
       <CardHeader className="p-0 ">
@@ -31,12 +31,12 @@ export function TaskCard(props) {
             />
           </ToolTipWrapper>
         </div>
-        <CardDescription className=" px-1 text-xs ">
+        <CardDescription className=" px-1 text-sm ">
           {task.description}
         </CardDescription>
       </CardHeader>
       <CardContent className=" p-1 space-y-2">
-        <p className=" text-sm">{task.body}</p>
+        {/* <p className=" text-sm">{task.body}</p> */}
         <ul className=" flex flex-col gap-2 text-xs mx-2 p-1">
           {task.todoList.map((todo) => {
             return (

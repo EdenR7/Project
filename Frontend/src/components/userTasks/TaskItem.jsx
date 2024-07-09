@@ -9,12 +9,18 @@ import { useContext, useState } from "react";
 import { SnackBarContext } from "@/context/SnackBarContext";
 import { TaskEditContext } from "@/context/TaskEditContext";
 import { TaskCard } from "./TaskCard";
+import { MyProgressBar } from "../ui/ProgressBar";
 
 export function TaskItem(props) {
   const { task, setTasks, tasks } = props;
   const navigate = useNavigate();
   const { snackBar, displaySnackBar } = useContext(SnackBarContext);
   const { editMode, moveToEditMode } = useContext(TaskEditContext);
+
+  const completedTodos = task.todoList.reduce(
+    (acc, todo) => (todo.isComplete ? acc + 1 : acc),
+    0
+  );
 
   function handleTodoChange(ev) {
     ev.stopPropagation();
@@ -76,38 +82,41 @@ export function TaskItem(props) {
   return (
     <li key={task._id}>
       <Card className=" relative p-6  shadow-md transition-all hover:-translate-y-1">
-        <MyDropDownMenu
-          triggerElement={
-            <EllipsisVertical
-              size={14}
-              className=" cursor-pointer ml-auto mb-2"
-            />
-          }
-          dropDownItems={[
-            <DropdownMenuCheckboxItem className="">
-              <p
-                className=" flex gap-2 items-center text-sm cursor-pointer"
-                onClick={() => {
-                  moveToEditMode();
-                  moveToTaskPage();
-                }}
-              >
-                Edit <Pencil size={14} />
-              </p>
-            </DropdownMenuCheckboxItem>,
-            <DropdownMenuCheckboxItem className=" text-red-500 font-semibold hover:text-red-600 cursor-pointer hover:bg-slate-50">
-              <p
-                className=" flex gap-2 items-center text-sm"
-                onClick={() => {
-                  removeTask(task._id);
-                }}
-              >
-                Delete <Trash2 size={14} />
-              </p>
-            </DropdownMenuCheckboxItem>,
-          ]}
-          label="options"
-        />
+        <div className="flex justify-between mb-4">
+          <MyProgressBar
+            completedTodos={completedTodos}
+            totalTodos={task.todoList.length}
+          />
+          <MyDropDownMenu
+            triggerElement={
+              <EllipsisVertical size={14} className=" cursor-pointer" />
+            }
+            dropDownItems={[
+              <DropdownMenuCheckboxItem className="">
+                <p
+                  className=" flex gap-2 items-center text-sm cursor-pointer"
+                  onClick={() => {
+                    moveToEditMode();
+                    moveToTaskPage();
+                  }}
+                >
+                  Edit <Pencil size={14} />
+                </p>
+              </DropdownMenuCheckboxItem>,
+              <DropdownMenuCheckboxItem className=" text-red-500 font-semibold hover:text-red-600 cursor-pointer hover:bg-slate-50">
+                <p
+                  className=" flex gap-2 items-center text-sm"
+                  onClick={() => {
+                    removeTask(task._id);
+                  }}
+                >
+                  Delete <Trash2 size={14} />
+                </p>
+              </DropdownMenuCheckboxItem>,
+            ]}
+            label="options"
+          />
+        </div>
         <TaskCard // the content of each task
           task={task}
           moveToTaskPage={moveToTaskPage}
