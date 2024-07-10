@@ -9,21 +9,25 @@ import { SnackBarContext } from "@/context/SnackBarContext";
 const USER_TASKS_URL = "/user/tasks";
 
 function CreateForm({ setTasks }) {
-  const [openForm, setOpenForm] = useToggle(false);
+  const [todos, setTodos] = useState([""]);
   const [addDesc, setAddDesc] = useState(false);
   const [addBody, setAddBody] = useState(false);
-  const [todos, setTodos] = useState([""]);
+
+  const [openForm, setOpenForm] = useToggle(false);
   const formRef = useRef(null);
-  const { snackBar, setSnackBar, displaySnackBar, closeSnackBar } =
-    useContext(SnackBarContext);
+  const { displaySnackBar } = useContext(SnackBarContext);
 
   function handleSubmit(event) {
+    // First handle the "normal fields" and then the todoList 
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = {};
+
+    // The names of the todos inputs are numbers, thats how im seperate the todos from the other fields in order to handle them uniquly
     formData.forEach((value, key) => {
       if (value && isNaN(key)) data[key] = value;
     });
+
     const todoList = todos.filter((element) => element); // make sure that there wont be a todo without data
     const todoListValue = todoList.map((element) => {
       return { title: element };
@@ -32,6 +36,7 @@ function CreateForm({ setTasks }) {
     createTask(data);
     setTodos([""]);
   }
+  
   function handleTodoChange(ev, curIndex) {
     setTodos((prev) => {
       return prev.map((e, i) => {

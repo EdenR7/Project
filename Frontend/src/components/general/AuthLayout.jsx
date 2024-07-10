@@ -22,6 +22,7 @@ function AuthLayout() {
             {location.pathname.includes("register") ? "Register" : "Login"}
           </CardTitle>
           <CardContent className="w-full max-w-80 ">
+            {/* Context goes down here */}
             <Outlet />
           </CardContent>
         </Card>

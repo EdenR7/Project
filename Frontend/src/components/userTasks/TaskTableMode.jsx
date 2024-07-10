@@ -5,7 +5,6 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -16,6 +15,7 @@ import {
 } from "@/components/ui/table";
 import { Pin, PinOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../ui/ThemeProvider";
 
 const columns = [
   {
@@ -59,6 +59,7 @@ const columns = [
 ];
 
 export function TaskTableMode({ tasks: data }) {
+  const { theme } = useTheme();
   const navigate = useNavigate();
   const table = useReactTable({
     data,
@@ -93,24 +94,37 @@ export function TaskTableMode({ tasks: data }) {
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  className=" cursor-pointer"
-                  onClick={() => {
-                    moveToTaskPage(row.original._id);
-                  }}
-                  key={row.id}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
+              table.getRowModel().rows.map((row) => {
+                const taskColor = row.original.bgColor;
+                console.log(taskColor);
+
+                let taskBg = "bg-background";
+                if (taskColor !== "white") {
+                  if (theme === "dark") {
+                    taskBg = `bg-${taskColor}-800`;
+                  } else {
+                    taskBg = `bg-${taskColor}-200`;
+                  }
+                }
+                return (
+                  <TableRow
+                    className={` cursor-pointer ${taskBg}`}
+                    onClick={() => {
+                      moveToTaskPage(row.original._id);
+                    }}
+                    key={row.id}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                );
+              })
             ) : (
               <TableRow>
                 <TableCell
@@ -124,24 +138,6 @@ export function TaskTableMode({ tasks: data }) {
           </TableBody>
         </Table>
       </div>
-      {/* <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div> */}
     </div>
   );
 }

@@ -14,8 +14,8 @@ import { useTheme } from "../ui/ThemeProvider";
 import ColorDropDown from "./ColorDropDown";
 
 export function TaskItem(props) {
-  const { theme } = useTheme();
   const { task, setTasks, tasks } = props;
+  const { theme } = useTheme();
   const navigate = useNavigate();
   const { snackBar, displaySnackBar } = useContext(SnackBarContext);
   const { editMode, moveToEditMode } = useContext(TaskEditContext);
@@ -24,8 +24,8 @@ export function TaskItem(props) {
     (acc, todo) => (todo.isComplete ? acc + 1 : acc),
     0
   );
-  let taskBg = "bg-background";
 
+  let taskBg = "bg-background";
   if (task.bgColor !== "white") {
     if (theme === "dark") {
       taskBg = `bg-${task.bgColor}-800`;
@@ -93,7 +93,7 @@ export function TaskItem(props) {
   return (
     <li key={task._id}>
       <Card
-        className={`relative p-6 shadow-md transition-all hover:-translate-y-1 ${taskBg}`}
+        className={` min-w-72 relative p-6 shadow-md transition-all hover:-translate-y-1 ${taskBg}`}
       >
         <div className="flex justify-between mb-4">
           <MyProgressBar

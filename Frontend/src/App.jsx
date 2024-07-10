@@ -42,7 +42,6 @@ function ProtectedLayout() { // wrap all this routes with the protected layout
 function App() {
   return (
     <>
-      <div className=" h-full">
         <Routes>
           <Route path="/" element={<DefaultLayout />}>
             <Route index element={<HomePage />} />
@@ -76,13 +75,10 @@ function App() {
           </Route>
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
-      </div>
     </>
   );
 }
 
-// footer
-// contact about and terms page
 // Home page
 // orginze code
 

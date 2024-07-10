@@ -152,7 +152,6 @@ export function TaskEditFormCard(props) {
           <Button>Submit</Button>
         </div>
       </div>
-      {/* snack bar */}
     </form>
   );
 }

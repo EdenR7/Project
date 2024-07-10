@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button";
 import { IconInput, Input } from "@/components/ui/input";
 import { AUTH_URL } from "@/components/general/AuthLayout";
 import api from "@/services/api.service";
-import { LockKeyhole, User } from "lucide-react";
+import { Eye, EyeOff, LockKeyhole, User } from "lucide-react";
 
 function LoginPage() {
+  const [displayPassword, setDisplayPassword] = useState(false);
   const [newUser, setNewUser] = useState({
     username: "",
     password: "",
@@ -65,15 +66,27 @@ function LoginPage() {
           name="username"
           required
         />
-        <IconInput
-          name="password"
-          value={newUser.password}
-          onChange={handleInputChange}
-          Icon={LockKeyhole}
-          placeholder="Password"
-          type="password"
-          required
-        />
+        <div className="relative">
+          <IconInput
+            name="password"
+            value={newUser.password}
+            onChange={handleInputChange}
+            Icon={LockKeyhole}
+            placeholder="Password"
+            type={`${displayPassword ? "text" : "password"}`}
+            required
+          />
+          <button
+            type="button"
+            className=" absolute top-3 right-3 text-gray-400"
+            onClick={() => {
+              setDisplayPassword((prev) => !prev);
+            }}
+          >
+            {displayPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+          </button>
+        </div>
+
         <p className=" text-xs mx-auto">
           Dont have an account?{" "}
           <Link className=" font-semibold text-primary" to={"register"}>
