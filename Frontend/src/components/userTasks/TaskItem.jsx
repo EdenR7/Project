@@ -93,7 +93,7 @@ export function TaskItem(props) {
   return (
     <li key={task._id}>
       <Card
-        className={` min-w-72 relative p-6 shadow-md transition-all hover:-translate-y-1 ${taskBg}`}
+        className={` break-words max-w-400 min-w-72 relative p-6 shadow-md transition-all hover:-translate-y-1 ${taskBg}`}
       >
         <div className="flex justify-between mb-4">
           <MyProgressBar
