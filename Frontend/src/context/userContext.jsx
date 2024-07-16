@@ -41,7 +41,7 @@ export function UserContextProvider({ children }) {
 
   useEffect(() => {
     if (userToken) {
-      loginUserContext(userToken);
+      loginUserContext();
     } else {
       setUser(null);
     }

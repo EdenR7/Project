@@ -18,8 +18,6 @@ async function getUser(req, res) {
 }
 
 async function getUserTasks(req, res) {
-  console.log("m");
-
   const { userId } = req;
   try {
     const tasks = await Task.find({ user: userId });

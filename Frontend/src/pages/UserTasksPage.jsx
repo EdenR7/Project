@@ -10,10 +10,10 @@ import TaskListMode from "@/components/userTasks/TaskListMode";
 import { TaskTableMode } from "@/components/userTasks/TaskTableMode";
 import { ToolTipWrapper } from "@/components/ui/ToolTipWrapper";
 
-
 function UserTasksPage() {
   // HOOKS
   const [tasks, setTasks] = useState([]);
+  console.log(tasks);
   const [loader, setLoader] = useState(false);
   const [tableMode, setTableMode] = useState(false);
   const location = useLocation();
